@@ -35,7 +35,7 @@ function getKeyDisplayText(keyName: string): string {
     if (keyName === 'Layer1') return 'L1'
     if (keyName === 'Layer2') return 'L2'
     if (keyName === 'Enter') return '⏎'
-    if (keyName === 'Space') return '␣'
+    if (keyName === 'SPACE') return '␣'
     if (keyName === 'CMD') return '⌘'
     if (keyName === 'CTRL') return '⌃'
     if (keyName === 'Del') return '⌫'
