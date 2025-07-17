@@ -48,7 +48,7 @@ function getKeyDisplayText(keyName: string): string {
     return keyName
 }
 
-function KeyText({ position, text, scale = 1 }: { position: [number, number, number], text: string, scale?: number }) {
+function KeyText({ position, text, rotation, scale = 1 }: { position: [number, number, number], text: string, rotation: [number, number, number], scale?: number }) {
     if (!text) {
         return null
     }
@@ -64,7 +64,7 @@ function KeyText({ position, text, scale = 1 }: { position: [number, number, num
             fontWeight="bold"
             anchorX="center"
             anchorY="middle"
-            rotation={[-Math.PI / 2, 0, 0]}
+            rotation={rotation}
         >
             {displayText}
         </Text>
@@ -77,7 +77,7 @@ function KeyboardModel() {
     const processedKeyPositions = useMemo(() => {
         if (!gltf || !gltf.scene) return []
 
-        const positions: Array<{ position: [number, number, number], text: string }> = []
+        const positions: Array<{ position: [number, number, number], text: string, rotation: [number, number, number] }> = []
 
         // Traverse the scene to find keycap objects
         gltf.scene.traverse((child) => {
@@ -90,6 +90,21 @@ function KeyboardModel() {
                     const worldPosition = new THREE.Vector3()
                     child.getWorldPosition(worldPosition)
 
+                    // Get local rotations in degrees
+                    const localX = (child.rotation.x * 180 / Math.PI).toFixed(1)
+                    const localY = (child.rotation.y * 180 / Math.PI).toFixed(1)
+                    const localZ = (child.rotation.z * 180 / Math.PI).toFixed(1)
+
+                    // Get world rotation
+                    const worldQuaternion = new THREE.Quaternion()
+                    child.getWorldQuaternion(worldQuaternion)
+                    const worldEuler = new THREE.Euler()
+                    worldEuler.setFromQuaternion(worldQuaternion)
+
+                    const worldX = (worldEuler.x * 180 / Math.PI).toFixed(1)
+                    const worldY = (worldEuler.y * 180 / Math.PI).toFixed(1)
+                    const worldZ = (worldEuler.z * 180 / Math.PI).toFixed(1)
+
                     // Filter out the problematic "Tab" key that's positioned way off
                     if (keyName === "Tab" && worldPosition.z < -50) {
                         return
@@ -97,12 +112,12 @@ function KeyboardModel() {
 
                     positions.push({
                         position: [worldPosition.x, worldPosition.y, worldPosition.z],
-                        text: keyName
+                        text: keyName,
+                        rotation: [-Math.PI / 2, 0, worldEuler.y]
                     })
 
-                    // Log in the requested format: GLB name: display value
-                    const displayText = getKeyDisplayText(keyName)
-                    console.log(`${child.name}: ${displayText}`)
+                    // Log both local and world rotations
+                    console.log(`${keyName}: local(x:${localX}° y:${localY}° z:${localZ}°) world(x:${worldX}° y:${worldY}° z:${worldZ}°)`)
                 }
             }
         })
@@ -132,6 +147,7 @@ function KeyboardModel() {
                         key={index}
                         position={worldPosition}
                         text={key.text}
+                        rotation={key.rotation}
                         scale={1}
                     />
                 )
@@ -195,13 +211,12 @@ export default function KeyboardViewer() {
 
             <Canvas
                 camera={{
-                    position: [0, 5, 12],
+                    position: [0, 30, 80],
                     fov: 45
                 }}
             >
-                <ambientLight intensity={0.6} />
-                <directionalLight position={[10, 10, 5]} intensity={1} />
-                <pointLight position={[-10, -10, -10]} intensity={0.3} />
+                <ambientLight intensity={1.6} />
+                <directionalLight position={[30, 10, 20]} intensity={2} />
 
                 <Suspense fallback={<LoadingIndicator />}>
                     <KeyboardModel />
@@ -211,8 +226,8 @@ export default function KeyboardViewer() {
                     enablePan={true}
                     enableZoom={true}
                     enableRotate={true}
-                    minDistance={5}
-                    maxDistance={25}
+                    minDistance={20}
+                    maxDistance={50}
                     target={[0, 0, 0]}
                 />
             </Canvas>
