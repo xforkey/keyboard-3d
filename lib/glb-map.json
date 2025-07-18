@@ -1,0 +1,593 @@
+{
+    "name": "G:Scene",
+    "children": [
+        {
+            "name": "M:RCase",
+            "children": [
+                {
+                    "name": "G:RCover",
+                    "children": [
+                        {
+                            "name": "M:CoverMesh"
+                        },
+                        {
+                            "name": "CoverMesh_1"
+                        }
+                    ]
+                },
+                {
+                    "name": "M:RPlate",
+                    "children": [
+                        {
+                            "name": "M:'",
+                            "children": [
+                                {
+                                    "name": "M:Switch036",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(')"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:,",
+                            "children": [
+                                {
+                                    "name": "M:Switch026",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(,)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:unnamed",
+                            "children": [
+                                {
+                                    "name": "M:Switch029",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap()"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:_1",
+                            "children": [
+                                {
+                                    "name": "M:Switch037",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap()_1"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:;",
+                            "children": [
+                                {
+                                    "name": "M:Switch035",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(;)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:DEL",
+                            "children": [
+                                {
+                                    "name": "M:Switch034",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(Del)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:ENTER",
+                            "children": [
+                                {
+                                    "name": "M:Switch041",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(Enter)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:ESC",
+                            "children": [
+                                {
+                                    "name": "M:Switch038",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(ESC)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:H",
+                            "children": [
+                                {
+                                    "name": "M:Switch031",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(H)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:I",
+                            "children": [
+                                {
+                                    "name": "M:Switch022",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(I)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:J",
+                            "children": [
+                                {
+                                    "name": "M:Switch023",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(J)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:K",
+                            "children": [
+                                {
+                                    "name": "M:Switch024",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(K)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:L",
+                            "children": [
+                                {
+                                    "name": "M:Switch028",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(L)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:LAYER2",
+                            "children": [
+                                {
+                                    "name": "M:Switch040",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(LAYER2)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:M",
+                            "children": [
+                                {
+                                    "name": "M:Switch025",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(M)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:N",
+                            "children": [
+                                {
+                                    "name": "M:Switch032",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(N)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:O",
+                            "children": [
+                                {
+                                    "name": "M:Switch027",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(O)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:OPTION",
+                            "children": [
+                                {
+                                    "name": "M:Switch039",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(OPTION)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:P",
+                            "children": [
+                                {
+                                    "name": "M:Switch033",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(P)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:U",
+                            "children": [
+                                {
+                                    "name": "M:Switch021",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(U)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:Y",
+                            "children": [
+                                {
+                                    "name": "M:Switch030",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(Y)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "M:LCase",
+            "children": [
+                {
+                    "name": "G:LCover",
+                    "children": [
+                        {
+                            "name": "M:CoverMesh"
+                        },
+                        {
+                            "name": "CoverMesh_1"
+                        }
+                    ]
+                },
+                {
+                    "name": "M:LPlate",
+                    "children": [
+                        {
+                            "name": "M:A",
+                            "children": [
+                                {
+                                    "name": "M:Switch003",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(A)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:B",
+                            "children": [
+                                {
+                                    "name": "M:Switch017",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(B)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:C",
+                            "children": [
+                                {
+                                    "name": "M:Switch011",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(C)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:CMD",
+                            "children": [
+                                {
+                                    "name": "M:Switch018",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(CMD)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:CTRL",
+                            "children": [
+                                {
+                                    "name": "M:Switch002",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(CTRL)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:D",
+                            "children": [
+                                {
+                                    "name": "M:Switch009",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(D)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:E",
+                            "children": [
+                                {
+                                    "name": "M:Switch007",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(E)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:F",
+                            "children": [
+                                {
+                                    "name": "M:Switch013",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(F)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:G",
+                            "children": [
+                                {
+                                    "name": "M:Switch016",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(G)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:L1",
+                            "children": [
+                                {
+                                    "name": "M:Switch019",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(LAYER1)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:Q",
+                            "children": [
+                                {
+                                    "name": "M:Switch001",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(Q)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:R",
+                            "children": [
+                                {
+                                    "name": "M:Switch012",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(R)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:S",
+                            "children": [
+                                {
+                                    "name": "M:Switch008",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(S)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:SHIFT",
+                            "children": [
+                                {
+                                    "name": "M:Switch004",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(SHIFT)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:SPACE",
+                            "children": [
+                                {
+                                    "name": "M:Switch020",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(SPACE)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:T",
+                            "children": [
+                                {
+                                    "name": "M:Switch015",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(T)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:Tab",
+                            "children": [
+                                {
+                                    "name": "M:Switch",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(TAB)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:V",
+                            "children": [
+                                {
+                                    "name": "M:Switch014",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(V)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:W",
+                            "children": [
+                                {
+                                    "name": "M:Switch006",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(W)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:X",
+                            "children": [
+                                {
+                                    "name": "M:Switch010",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(X)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "name": "M:Z",
+                            "children": [
+                                {
+                                    "name": "M:Switch005",
+                                    "children": [
+                                        {
+                                            "name": "M:Keycap(Z)"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
