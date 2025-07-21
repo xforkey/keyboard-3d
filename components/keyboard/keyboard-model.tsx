@@ -16,6 +16,7 @@ import { KeyboardFallback } from './keyboard-fallbacks'
 import { getKeyboardLayoutData } from '@/lib/keyboard-utils'
 import { KeyData } from '@/lib/keyboard-types'
 import { LAYER_NAMES } from '@/lib/keyboard-constants'
+import { useZmkState, useZmkLayers, useCurrentLayer } from '@/lib/zmk-hooks'
 
 // Types
 interface KeyPositionData {
@@ -253,6 +254,10 @@ function useKeyboardState() {
 // Main keyboard component with interactive features
 function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: string }) {
     const gltf = useGLTF('/keyboard.glb')
+    const zmkState = useZmkState()
+    const zmkLayers = useZmkLayers()
+    const currentZmkLayer = useCurrentLayer()
+
     const {
         pressedKeys,
         hoveredKeys,
@@ -269,7 +274,7 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
         return null
     }
 
-    // Get key positions from our JSON data instead of extracting from 3D model
+    // Get key positions from our JSON data and merge with ZMK data
     const { processedKeyPositions } = useMemo(() => {
         const keyboardData = getKeyboardLayoutData()
 
@@ -278,20 +283,48 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
             // Extract the key name from meta data or use a fallback
             const keyName = keyData.meta?.keyName || keyData.id.split('_').pop() || keyData.id
 
+            // Try to find corresponding ZMK binding for this key position
+            let zmkBinding = null
+            let zmkLabel = null
+
+            if (currentZmkLayer && currentZmkLayer.keys) {
+                // Look for matching key by position/id patterns
+                const possibleKeyIds = [
+                    keyData.id, // exact match
+                    `L0_${keyData.id.split('_').slice(1).join('_')}`, // layer 0 prefix
+                    `L${currentZmkLayer.id}_${keyData.id.split('_').slice(1).join('_')}`, // current layer prefix
+                ]
+
+                for (const keyId of possibleKeyIds) {
+                    if (currentZmkLayer.keys[keyId]) {
+                        zmkBinding = currentZmkLayer.keys[keyId]
+                        zmkLabel = zmkBinding.label || zmkBinding.code
+                        break
+                    }
+                }
+            }
+
             return {
                 position: keyData.position as [number, number, number],
                 text: keyName,
                 rotation: [keyData.rotation[0], keyData.rotation[1], keyData.rotation[2]] as [number, number, number],
-                binding: keyData.binding,
+                binding: zmkBinding?.code || keyData.binding,
                 layer: keyData.layer,
-                keyData
+                keyData: {
+                    ...keyData,
+                    binding: zmkBinding?.code || keyData.binding,
+                    label: zmkLabel || keyData.label
+                }
             }
         })
 
         console.log(`Using ${positions.length} key positions from JSON data`)
+        if (currentZmkLayer) {
+            console.log(`Merged with ZMK layer: ${currentZmkLayer.name} (${Object.keys(currentZmkLayer.keys).length} bindings)`)
+        }
 
         return { processedKeyPositions: positions }
-    }, []) // No dependency on gltf?.scene since we're using static JSON data
+    }, [currentZmkLayer]) // Depend on current ZMK layer
 
     // Extract keyboard components
     const keyboardComponents = useMemo(() => {
@@ -617,10 +650,40 @@ function KeyboardTextLabels({
                     }
                 }
 
-                // Determine display text - show binding label if available and on current layer
+                // Determine display text - prioritize ZMK binding labels
                 let displayText = KEY_SYMBOL_MAP[key.text] || key.text
-                if (key.keyData?.label && key.layer === currentLayer) {
+
+                // Use ZMK binding label if available
+                if (key.keyData?.label) {
                     displayText = key.keyData.label
+                } else if (key.keyData?.binding && key.keyData.binding !== key.text) {
+                    // Extract meaningful text from binding codes
+                    const binding = key.keyData.binding
+                    if (binding.startsWith('&kp ')) {
+                        const keyCode = binding.replace('&kp ', '')
+                        displayText = KEY_SYMBOL_MAP[keyCode] || keyCode
+                    } else if (binding.startsWith('&mo ')) {
+                        const layerNum = binding.replace('&mo ', '')
+                        displayText = `L${layerNum}`
+                    } else if (binding.startsWith('&mt ')) {
+                        const parts = binding.replace('&mt ', '').split(' ')
+                        if (parts.length >= 2) {
+                            const mod = KEY_SYMBOL_MAP[parts[0]] || parts[0]
+                            const key = KEY_SYMBOL_MAP[parts[1]] || parts[1]
+                            displayText = `${mod}/${key}`
+                        }
+                    } else if (binding.startsWith('&lt ')) {
+                        const parts = binding.replace('&lt ', '').split(' ')
+                        if (parts.length >= 2) {
+                            const layerNum = parts[0]
+                            const key = KEY_SYMBOL_MAP[parts[1]] || parts[1]
+                            displayText = `L${layerNum}/${key}`
+                        }
+                    } else if (binding === '&trans') {
+                        displayText = '▽'
+                    } else if (binding === '&none') {
+                        displayText = ''
+                    }
                 }
 
                 if (index === 0) {

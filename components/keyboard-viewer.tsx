@@ -6,16 +6,30 @@ import { Suspense, useState } from 'react'
 import { KeyboardModel } from './keyboard/keyboard-model'
 import { LoadingIndicator } from './keyboard/keyboard-fallbacks'
 import { LAYER_NAMES } from '@/lib/keyboard-constants'
+import { useZmkLayers, useCurrentLayer } from '@/lib/zmk-hooks'
 
 export default function KeyboardViewer({ keyboardColor = '#333333' }: { keyboardColor?: string }) {
     const [currentLayer, setCurrentLayer] = useState(LAYER_NAMES.BASE)
+    const zmkLayers = useZmkLayers()
+    const currentZmkLayer = useCurrentLayer()
+
+    // Use ZMK layer info if available, otherwise fall back to default
+    const displayLayerName = currentZmkLayer?.name || (
+        currentLayer === LAYER_NAMES.BASE ? 'Base' :
+            currentLayer === LAYER_NAMES.LOWER ? 'Lower' : 'Raise'
+    )
 
     return (
         <div className="keyboard-container">
             <div className="keyboard-header">
                 <h1 className="keyboard-title">Interactive 3D Keyboard</h1>
                 <p className="keyboard-description">Click any key or type on your keyboard to see it press down!</p>
-                <p className="keyboard-features">Features carbon fiber plates, plastic cases, and full interactivity</p>
+                <p className="keyboard-features">
+                    {zmkLayers.length > 0
+                        ? `Loaded ZMK keymap with ${zmkLayers.length} layer${zmkLayers.length !== 1 ? 's' : ''}`
+                        : 'Features carbon fiber plates, plastic cases, and full interactivity'
+                    }
+                </p>
 
                 {/* Layer Indicator */}
                 <div className="mt-3 flex items-center space-x-4">
@@ -23,8 +37,7 @@ export default function KeyboardViewer({ keyboardColor = '#333333' }: { keyboard
                     <div className={`layer-${currentLayer === LAYER_NAMES.BASE ? 'base' : currentLayer === LAYER_NAMES.LOWER ? 'lower' : 'raise'} layer-active flex items-center`}>
                         <div className="layer-indicator"></div>
                         <span className="key-binding-label">
-                            {currentLayer === LAYER_NAMES.BASE ? 'Base' :
-                                currentLayer === LAYER_NAMES.LOWER ? 'Lower' : 'Raise'}
+                            {displayLayerName}
                         </span>
                     </div>
                 </div>
