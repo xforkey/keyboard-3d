@@ -120,3 +120,179 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Keyboard View Styles */
+  .keyboard-container {
+    @apply w-full min-h-screen bg-zinc-950 flex flex-col;
+  }
+  
+  .keyboard-header {
+    @apply p-4 text-white max-w-xs sm:max-w-sm lg:max-w-md;
+  }
+  
+  .keyboard-title {
+    @apply text-lg sm:text-xl font-bold;
+  }
+  
+  .keyboard-description {
+    @apply text-xs sm:text-sm text-gray-300 mt-1;
+  }
+  
+  .keyboard-features {
+    @apply text-xs text-gray-400 mt-1 hidden sm:block;
+  }
+  
+  .keyboard-canvas-container {
+    @apply flex-1 flex items-end justify-center;
+  }
+  
+  .keyboard-canvas {
+    @apply w-full h-full max-w-6xl;
+    aspect-ratio: 16 / 9;
+    min-height: 60vh;
+  }
+
+  /* Key State Styles */
+  .key-hover {
+    @apply transition-all duration-150 ease-in-out;
+    filter: brightness(1.2) saturate(1.1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .key-selected {
+    @apply transition-all duration-100 ease-in-out;
+    filter: brightness(1.4) saturate(1.3) hue-rotate(15deg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(59, 130, 246, 0.4);
+    outline: 2px solid theme(colors.blue.400);
+    outline-offset: 2px;
+  }
+  
+  .key-blank {
+    @apply opacity-60;
+    filter: grayscale(0.3) brightness(0.8);
+  }
+  
+  .key-binding-label {
+    @apply text-xs font-medium text-gray-700 dark:text-gray-300;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.025em;
+  }
+
+  /* Layer-specific Styles */
+  .layer-base {
+    --layer-color: theme(colors.slate.600);
+    --layer-accent: theme(colors.slate.400);
+    --layer-text: theme(colors.slate.100);
+  }
+  
+  .layer-lower {
+    --layer-color: theme(colors.blue.600);
+    --layer-accent: theme(colors.blue.400);
+    --layer-text: theme(colors.blue.100);
+  }
+  
+  .layer-raise {
+    --layer-color: theme(colors.purple.600);
+    --layer-accent: theme(colors.purple.400);
+    --layer-text: theme(colors.purple.100);
+  }
+  
+  .layer-indicator {
+    @apply inline-block w-3 h-3 rounded-full mr-2;
+    background-color: var(--layer-color);
+    box-shadow: 0 0 8px var(--layer-accent);
+  }
+  
+  .layer-active .key-binding-label {
+    color: var(--layer-text);
+    text-shadow: 0 0 4px var(--layer-accent);
+  }
+
+  /* Accessibility Styles */
+  .key-focus {
+    @apply outline-none;
+    outline: 3px solid theme(colors.yellow.400);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(251, 191, 36, 0.2);
+  }
+  
+  .key-focus-visible {
+    @apply outline-none;
+    outline: 2px solid theme(colors.blue.500);
+    outline-offset: 2px;
+  }
+  
+  .high-contrast .key-hover {
+    filter: brightness(1.5) contrast(1.2);
+    outline: 2px solid theme(colors.white);
+  }
+  
+  .high-contrast .key-selected {
+    filter: brightness(1.8) contrast(1.4);
+    outline: 3px solid theme(colors.yellow.400);
+  }
+  
+  .high-contrast .key-binding-label {
+    @apply text-white font-bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Animation Classes */
+  .key-press-animation {
+    animation: keyPress 0.1s ease-in-out;
+  }
+  
+  .key-release-animation {
+    animation: keyRelease 0.15s ease-out;
+  }
+  
+  @keyframes keyPress {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+    100% { transform: translateY(-2px); }
+  }
+  
+  @keyframes keyRelease {
+    0% { transform: translateY(-2px); }
+    100% { transform: translateY(0); }
+  }
+
+  /* Layer Transition Animations */
+  .layer-transition {
+    animation: layerFade 0.3s ease-in-out;
+  }
+  
+  @keyframes layerFade {
+    0% { opacity: 0.7; filter: blur(1px); }
+    100% { opacity: 1; filter: blur(0); }
+  }
+
+  /* Responsive Key Styles */
+  @media (max-width: 640px) {
+    .key-binding-label {
+      @apply text-xs;
+    }
+    
+    .key-hover {
+      transform: translateY(-0.5px);
+    }
+    
+    .key-selected {
+      transform: translateY(-1px);
+    }
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .key-hover,
+    .key-selected,
+    .key-press-animation,
+    .key-release-animation,
+    .layer-transition {
+      animation: none;
+      transition: none;
+    }
+  }
+}

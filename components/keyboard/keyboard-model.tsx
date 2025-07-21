@@ -13,18 +13,54 @@ import {
 } from '@/lib/keyboard-config'
 import { createMaterial, createPlasticMaterial, createColoredPlasticMaterial, generateSTLUVCoordinates } from '@/lib/materials'
 import { KeyboardFallback } from './keyboard-fallbacks'
+import { getKeyboardLayoutData } from '@/lib/keyboard-utils'
+import { KeyData } from '@/lib/keyboard-types'
+import { LAYER_NAMES } from '@/lib/keyboard-constants'
 
 // Types
 interface KeyPositionData {
     position: [number, number, number]
     text: string
     rotation: [number, number, number]
+    binding?: string
+    layer?: string
+    keyData?: KeyData
 }
 
 interface MeshData {
     mesh: THREE.Mesh
     name: string
 }
+
+interface KeyState {
+    isPressed: boolean
+    isHovered: boolean
+    isSelected: boolean
+    hasBinding: boolean
+    layer: string
+}
+
+// Layer color mapping for 3D styling
+const LAYER_COLORS = {
+    [LAYER_NAMES.BASE]: {
+        text: '#374151',
+        hover: '#4B5563',
+        selected: '#6B7280',
+        accent: '#9CA3AF'
+    },
+    [LAYER_NAMES.LOWER]: {
+        text: '#1E40AF',
+        hover: '#2563EB',
+        selected: '#3B82F6',
+        accent: '#60A5FA'
+    },
+    [LAYER_NAMES.RAISE]: {
+        text: '#7C3AED',
+        hover: '#8B5CF6',
+        selected: '#A78BFA',
+        accent: '#C4B5FD'
+    }
+} as const
 
 // Material Components
 function CarbonFiberPlate({ mesh, name }: MeshData) {
@@ -119,16 +155,61 @@ function createMeshWithWorldData(mesh: THREE.Mesh): THREE.Mesh {
 // Custom Hooks
 function useKeyboardState() {
     const [pressedKeys, setPressedKeys] = useState<Record<string, boolean>>({})
+    const [hoveredKeys, setHoveredKeys] = useState<Record<string, boolean>>({})
+    const [selectedKey, setSelectedKey] = useState<string | null>(null)
+    const [currentLayer, setCurrentLayer] = useState<string>(LAYER_NAMES.BASE)
+    const [keyStates, setKeyStates] = useState<Record<string, KeyState>>({})
 
     const handleKeyPress = useCallback((key: string) => {
         console.log(`Key pressed: ${key}`)
         setPressedKeys(prev => ({ ...prev, [key]: true }))
+
+        // Handle layer switching
+        if (key === 'LAYER1') {
+            setCurrentLayer(LAYER_NAMES.LOWER)
+        } else if (key === 'LAYER2') {
+            setCurrentLayer(LAYER_NAMES.RAISE)
+        }
     }, [])
 
     const handleKeyRelease = useCallback((key: string) => {
         console.log(`Key released: ${key}`)
         setPressedKeys(prev => ({ ...prev, [key]: false }))
+
+        // Reset to base layer when layer keys are released
+        if (key === 'LAYER1' || key === 'LAYER2') {
+            setCurrentLayer(LAYER_NAMES.BASE)
+        }
     }, [])
+
+    const handleKeyHover = useCallback((key: string, isHovering: boolean) => {
+        setHoveredKeys(prev => ({ ...prev, [key]: isHovering }))
+    }, [])
+
+    const handleKeySelect = useCallback((key: string | null) => {
+        setSelectedKey(key)
+    }, [])
+
+    // Update key states based on current layer and interactions
+    useEffect(() => {
+        const keyboardData = getKeyboardLayoutData()
+        const newKeyStates: Record<string, KeyState> = {}
+
+        keyboardData.keys.forEach((keyData: KeyData) => {
+            const keyName = keyData.meta?.keyName || keyData.id.split('_').pop() || keyData.id
+            const hasBinding = Boolean(keyData.binding && keyData.binding.trim() !== '')
+
+            newKeyStates[keyName] = {
+                isPressed: pressedKeys[keyName] || false,
+                isHovered: hoveredKeys[keyName] || false,
+                isSelected: selectedKey === keyName,
+                hasBinding,
+                layer: keyData.layer
+            }
+        })
+
+        setKeyStates(newKeyStates)
+    }, [pressedKeys, hoveredKeys, selectedKey, currentLayer])
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
@@ -156,37 +237,61 @@ function useKeyboardState() {
         }
     }, [handleKeyPress, handleKeyRelease])
 
-    return { pressedKeys, handleKeyPress, handleKeyRelease }
+    return {
+        pressedKeys,
+        hoveredKeys,
+        selectedKey,
+        currentLayer,
+        keyStates,
+        handleKeyPress,
+        handleKeyRelease,
+        handleKeyHover,
+        handleKeySelect
+    }
 }
 
 // Main keyboard component with interactive features
 function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: string }) {
     const gltf = useGLTF('/keyboard.glb')
-    const { pressedKeys, handleKeyPress, handleKeyRelease } = useKeyboardState()
+    const {
+        pressedKeys,
+        hoveredKeys,
+        selectedKey,
+        currentLayer,
+        keyStates,
+        handleKeyPress,
+        handleKeyRelease,
+        handleKeyHover,
+        handleKeySelect
+    } = useKeyboardState()
 
     if (!gltf?.scene) {
         return null
     }
 
-    // Process keycap positions for text rendering
+    // Get key positions from our JSON data instead of extracting from 3D model
     const { processedKeyPositions } = useMemo(() => {
-        if (!gltf?.scene) {
-            return { processedKeyPositions: [] }
-        }
+        const keyboardData = getKeyboardLayoutData()
 
-        const positions: KeyPositionData[] = []
+        // Convert our KeyData to the format expected by KeyboardTextLabels
+        const positions: KeyPositionData[] = keyboardData.keys.map((keyData: KeyData) => {
+            // Extract the key name from meta data or use a fallback
+            const keyName = keyData.meta?.keyName || keyData.id.split('_').pop() || keyData.id
 
-        gltf.scene.traverse((child) => {
-            if (child.name?.includes('Keycap')) {
-                const result = processKeycapNode(child)
-                if (result) {
-                    positions.push(result)
-                }
+            return {
+                position: keyData.position as [number, number, number],
+                text: keyName,
+                rotation: [keyData.rotation[0], keyData.rotation[1], keyData.rotation[2]] as [number, number, number],
+                binding: keyData.binding,
+                layer: keyData.layer,
+                keyData
             }
         })
 
+        console.log(`Using ${positions.length} key positions from JSON data`)
+
         return { processedKeyPositions: positions }
-    }, [gltf?.scene])
+    }, []) // No dependency on gltf?.scene since we're using static JSON data
 
     // Extract keyboard components
     const keyboardComponents = useMemo(() => {
@@ -302,8 +407,11 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
                 <InteractiveKeys
                     keyChildren={keyChildren}
                     pressedKeys={pressedKeys}
+                    keyStates={keyStates}
                     onKeyPress={handleKeyPress}
                     onKeyRelease={handleKeyRelease}
+                    onKeyHover={handleKeyHover}
+                    onKeySelect={handleKeySelect}
                 />
             </group>
 
@@ -344,6 +452,8 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
             <KeyboardTextLabels
                 keyPositions={processedKeyPositions}
                 pressedKeys={pressedKeys}
+                keyStates={keyStates}
+                currentLayer={currentLayer}
             />
         </group>
     )
@@ -353,13 +463,19 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
 function InteractiveKeys({
     keyChildren,
     pressedKeys,
+    keyStates,
     onKeyPress,
-    onKeyRelease
+    onKeyRelease,
+    onKeyHover,
+    onKeySelect
 }: {
     keyChildren: THREE.Object3D[]
     pressedKeys: Record<string, boolean>
+    keyStates: Record<string, KeyState>
     onKeyPress: (key: string) => void
     onKeyRelease: (key: string) => void
+    onKeyHover: (key: string, isHovering: boolean) => void
+    onKeySelect: (key: string | null) => void
 }) {
     return (
         <>
@@ -421,15 +537,27 @@ function InteractiveKeys({
                             }
                         }}
                         onPointerOver={(e: any) => {
+                            const keyName = e.object.userData?.keyName
                             e.stopPropagation()
                             document.body.style.cursor = 'pointer'
+                            if (keyName) {
+                                onKeyHover(keyName, true)
+                            }
                         }}
                         onPointerOut={(e: any) => {
                             const keyName = e.object.userData?.keyName
                             e.stopPropagation()
                             document.body.style.cursor = 'default'
                             if (keyName) {
+                                onKeyHover(keyName, false)
                                 onKeyRelease(keyName)
+                            }
+                        }}
+                        onClick={(e: any) => {
+                            const keyName = e.object.userData?.keyName
+                            if (keyName) {
+                                e.stopPropagation()
+                                onKeySelect(keyName)
                             }
                         }}
                     />
@@ -442,10 +570,14 @@ function InteractiveKeys({
 // Text rendering component
 function KeyboardTextLabels({
     keyPositions,
-    pressedKeys
+    pressedKeys,
+    keyStates,
+    currentLayer
 }: {
     keyPositions: KeyPositionData[]
     pressedKeys: Record<string, boolean>
+    keyStates: Record<string, KeyState>
+    currentLayer: string
 }) {
     useEffect(() => {
         if (keyPositions.length > 0) {
@@ -456,6 +588,7 @@ function KeyboardTextLabels({
     return (
         <>
             {keyPositions.map((key, index) => {
+                const keyState = keyStates[key.text]
                 const isPressed = pressedKeys[key.text] || false
                 const pressOffset = isPressed ? -KEY_PRESS_HEIGHT * SCALE_FACTOR : 0
 
@@ -465,8 +598,33 @@ function KeyboardTextLabels({
                     key.position[2] * SCALE_FACTOR
                 ]
 
+                // Determine text color based on key state and layer
+                let textColor: string = '#374151' // Always default to #374151
+
+                if (keyState) {
+                    const layerColors = LAYER_COLORS[currentLayer as keyof typeof LAYER_COLORS] || LAYER_COLORS[LAYER_NAMES.BASE]
+
+                    if (keyState.isSelected) {
+                        textColor = layerColors.selected
+                    } else if (keyState.isHovered) {
+                        textColor = layerColors.hover
+                    } else if (!keyState.hasBinding) {
+                        textColor = '#9CA3AF' // gray for blank keys
+                    } else if (keyState.layer === currentLayer && currentLayer !== LAYER_NAMES.BASE) {
+                        textColor = layerColors.accent
+                    } else {
+                        textColor = '#374151' // Always use #374151 for base layer and default state
+                    }
+                }
+
+                // Determine display text - show binding label if available and on current layer
+                let displayText = KEY_SYMBOL_MAP[key.text] || key.text
+                if (key.keyData?.label && key.layer === currentLayer) {
+                    displayText = key.keyData.label
+                }
+
                 if (index === 0) {
-                    console.log(`First text: "${key.text}" at position:`, worldPosition, 'rotation:', key.rotation)
+                    console.log(`First text: "${key.text}" at position:`, worldPosition, 'rotation:', key.rotation, 'color:', textColor)
                 }
 
                 return (
@@ -474,11 +632,11 @@ function KeyboardTextLabels({
                         <Text
                             position={worldPosition}
                             fontSize={0.64}
-                            color="#374151"
+                            color={textColor}
                             fontWeight="bold"
                             rotation={key.rotation}
                         >
-                            {KEY_SYMBOL_MAP[key.text] || key.text}
+                            {displayText}
                         </Text>
                     </group>
                 )
