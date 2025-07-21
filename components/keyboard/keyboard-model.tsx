@@ -3,6 +3,12 @@
 import { useGLTF, Text } from '@react-three/drei'
 import { Suspense, useEffect, useMemo, useState, useCallback } from 'react'
 import * as THREE from 'three'
+
+// Type for React Three Fiber events
+interface ThreeEvent {
+    object: THREE.Object3D & { userData?: { keyName?: string } }
+    stopPropagation: () => void
+}
 import {
     SCALE_FACTOR,
     TEXT_OFFSET,
@@ -11,12 +17,12 @@ import {
     KEYBOARD_KEY_MAP,
     KEY_PRESS_HEIGHT
 } from '@/lib/keyboard-config'
-import { createMaterial, createPlasticMaterial, createColoredPlasticMaterial, generateSTLUVCoordinates } from '@/lib/materials'
+import { createMaterial, createColoredPlasticMaterial, generateSTLUVCoordinates } from '@/lib/materials'
 import { KeyboardFallback } from './keyboard-fallbacks'
 import { getKeyboardLayoutData } from '@/lib/keyboard-utils'
 import { KeyData } from '@/lib/keyboard-types'
 import { LAYER_NAMES } from '@/lib/keyboard-constants'
-import { useZmkState, useZmkLayers, useCurrentLayer } from '@/lib/zmk-hooks'
+import { useCurrentLayer } from '@/lib/zmk-hooks'
 
 // Types
 interface KeyPositionData {
@@ -64,7 +70,7 @@ const LAYER_COLORS = {
 } as const
 
 // Material Components
-function CarbonFiberPlate({ mesh, name }: MeshData) {
+function CarbonFiberPlate({ mesh }: MeshData) {
     const material = createMaterial('/materials/carbon-fiber', 'carbon-fiber', 2)
     const worldPos = mesh.userData.worldPosition
     const worldQuat = mesh.userData.worldQuaternion
@@ -86,7 +92,7 @@ function CarbonFiberPlate({ mesh, name }: MeshData) {
     )
 }
 
-function PlasticCase({ mesh, name, color = '#333333' }: MeshData & { color?: string }) {
+function PlasticCase({ mesh, color = '#333333' }: MeshData & { color?: string }) {
     const material = createColoredPlasticMaterial(color, 3)
     const worldPos = mesh.userData.worldPosition
     const worldQuat = mesh.userData.worldQuaternion
@@ -109,24 +115,6 @@ function PlasticCase({ mesh, name, color = '#333333' }: MeshData & { color?: str
 }
 
 // Utility Functions
-function processKeycapNode(child: THREE.Object3D): KeyPositionData | null {
-    const keyName = extractKeyName(child.name)
-    if (!keyName || !(child instanceof THREE.Mesh)) return null
-
-    const worldPosition = new THREE.Vector3()
-    child.getWorldPosition(worldPosition)
-
-    const worldQuaternion = new THREE.Quaternion()
-    child.getWorldQuaternion(worldQuaternion)
-    const worldEuler = new THREE.Euler()
-    worldEuler.setFromQuaternion(worldQuaternion)
-
-    return {
-        position: [worldPosition.x, worldPosition.y, worldPosition.z],
-        text: keyName,
-        rotation: [-Math.PI / 2, 0, worldEuler.y]
-    }
-}
 
 function findNodesByName(node: THREE.Object3D, names: string[]): THREE.Object3D[] {
     let found: THREE.Object3D[] = []
@@ -254,14 +242,10 @@ function useKeyboardState() {
 // Main keyboard component with interactive features
 function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: string }) {
     const gltf = useGLTF('/keyboard.glb')
-    const zmkState = useZmkState()
-    const zmkLayers = useZmkLayers()
     const currentZmkLayer = useCurrentLayer()
 
     const {
         pressedKeys,
-        hoveredKeys,
-        selectedKey,
         currentLayer,
         keyStates,
         handleKeyPress,
@@ -269,10 +253,6 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
         handleKeyHover,
         handleKeySelect
     } = useKeyboardState()
-
-    if (!gltf?.scene) {
-        return null
-    }
 
     // Get key positions from our JSON data and merge with ZMK data
     const { processedKeyPositions } = useMemo(() => {
@@ -440,7 +420,6 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
                 <InteractiveKeys
                     keyChildren={keyChildren}
                     pressedKeys={pressedKeys}
-                    keyStates={keyStates}
                     onKeyPress={handleKeyPress}
                     onKeyRelease={handleKeyRelease}
                     onKeyHover={handleKeyHover}
@@ -496,7 +475,6 @@ function KeyboardModelCore({ keyboardColor = '#333333' }: { keyboardColor?: stri
 function InteractiveKeys({
     keyChildren,
     pressedKeys,
-    keyStates,
     onKeyPress,
     onKeyRelease,
     onKeyHover,
@@ -504,7 +482,6 @@ function InteractiveKeys({
 }: {
     keyChildren: THREE.Object3D[]
     pressedKeys: Record<string, boolean>
-    keyStates: Record<string, KeyState>
     onKeyPress: (key: string) => void
     onKeyRelease: (key: string) => void
     onKeyHover: (key: string, isHovering: boolean) => void
@@ -555,21 +532,21 @@ function InteractiveKeys({
                     <primitive
                         key={obj.uuid}
                         object={animatedObj}
-                        onPointerDown={(e: any) => {
+                        onPointerDown={(e: ThreeEvent) => {
                             const keyName = e.object.userData?.keyName
                             if (keyName) {
                                 e.stopPropagation()
                                 onKeyPress(keyName)
                             }
                         }}
-                        onPointerUp={(e: any) => {
+                        onPointerUp={(e: ThreeEvent) => {
                             const keyName = e.object.userData?.keyName
                             if (keyName) {
                                 e.stopPropagation()
                                 onKeyRelease(keyName)
                             }
                         }}
-                        onPointerOver={(e: any) => {
+                        onPointerOver={(e: ThreeEvent) => {
                             const keyName = e.object.userData?.keyName
                             e.stopPropagation()
                             document.body.style.cursor = 'pointer'
@@ -577,7 +554,7 @@ function InteractiveKeys({
                                 onKeyHover(keyName, true)
                             }
                         }}
-                        onPointerOut={(e: any) => {
+                        onPointerOut={(e: ThreeEvent) => {
                             const keyName = e.object.userData?.keyName
                             e.stopPropagation()
                             document.body.style.cursor = 'default'
@@ -586,7 +563,7 @@ function InteractiveKeys({
                                 onKeyRelease(keyName)
                             }
                         }}
-                        onClick={(e: any) => {
+                        onClick={(e: ThreeEvent) => {
                             const keyName = e.object.userData?.keyName
                             if (keyName) {
                                 e.stopPropagation()

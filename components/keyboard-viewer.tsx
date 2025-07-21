@@ -9,7 +9,7 @@ import { LAYER_NAMES } from '@/lib/keyboard-constants'
 import { useZmkLayers, useCurrentLayer } from '@/lib/zmk-hooks'
 
 export default function KeyboardViewer({ keyboardColor = '#333333' }: { keyboardColor?: string }) {
-    const [currentLayer, setCurrentLayer] = useState(LAYER_NAMES.BASE)
+    const [currentLayer] = useState(LAYER_NAMES.BASE)
     const zmkLayers = useZmkLayers()
     const currentZmkLayer = useCurrentLayer()
 

@@ -31,7 +31,10 @@ export type KeyData = {
     side: 'left' | 'right';
 
     /** Optional metadata — tooltips, source file, legend overrides, etc. */
-    meta?: Record<string, any>;
+    meta?: {
+        keyName?: string;
+        [key: string]: unknown;
+    };
 };
 
 export type KeyboardLayoutData = {

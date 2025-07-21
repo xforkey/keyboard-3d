@@ -1,5 +1,4 @@
 import { KeyData, KeyboardLayoutData, Key, KeymapConfig, Layer, Binding } from './keyboard-types';
-import { LAYERS, ROWS, COLS, TOTAL_KEYS } from './keyboard-constants';
 import keyboardLayoutData from './keyboard-layout-data.json';
 
 // Type assertion for the imported JSON data with proper casting

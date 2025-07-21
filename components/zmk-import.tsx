@@ -94,7 +94,7 @@ export default function ZmkImport({ onImportSuccess, onImportError }: ZmkImportP
             handleImportError('Failed to read file');
         };
         reader.readAsText(file);
-    }, [processKeymapContent, handleImportError]);
+    }, [processKeymapContent, handleImportError, MAX_FILE_SIZE]);
 
     const handleDragOver = useCallback((e: React.DragEvent) => {
         e.preventDefault();

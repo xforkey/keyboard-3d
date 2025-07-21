@@ -3,53 +3,28 @@ import { useLoader } from '@react-three/fiber'
 import * as THREE from 'three'
 import React from 'react'
 
-// General function to create PBR material from a texture directory
-export function createMaterial(textureDirectory: string, materialName: string, scale: number = 1, options: {
+// General hook to create PBR material from a texture directory
+export function useMaterial(textureDirectory: string, materialName: string, scale: number = 1, options: {
     roughness?: number,
     metalness?: number,
     displacementScale?: number
 } = {}) {
     const {
-        roughness = 0.8,
-        metalness = 0.2,
         displacementScale = 0.1
     } = options
 
     // Try to load standard PBR texture maps
-    let colorTexture, normalTexture, roughnessTexture, metalnessTexture, displacementTexture
+    const textures = useTexture([
+        `${textureDirectory}/${materialName}_Color.jpg`,
+        `${textureDirectory}/${materialName}_NormalGL.jpg`,
+        `${textureDirectory}/${materialName}_Roughness.jpg`,
+        `${textureDirectory}/${materialName}_Metalness.jpg`,
+        `${textureDirectory}/${materialName}_Displacement.jpg`
+    ])
 
-    try {
-        colorTexture = useTexture(`${textureDirectory}/${materialName}_Color.jpg`)
-    } catch (e) {
-        console.warn(`Color texture not found: ${textureDirectory}/${materialName}_Color.jpg`)
-    }
-
-    try {
-        normalTexture = useTexture(`${textureDirectory}/${materialName}_NormalGL.jpg`)
-    } catch (e) {
-        console.warn(`Normal texture not found: ${textureDirectory}/${materialName}_NormalGL.jpg`)
-    }
-
-    try {
-        roughnessTexture = useTexture(`${textureDirectory}/${materialName}_Roughness.jpg`)
-    } catch (e) {
-        console.warn(`Roughness texture not found: ${textureDirectory}/${materialName}_Roughness.jpg`)
-    }
-
-    try {
-        metalnessTexture = useTexture(`${textureDirectory}/${materialName}_Metalness.jpg`)
-    } catch (e) {
-        console.warn(`Metalness texture not found: ${textureDirectory}/${materialName}_Metalness.jpg`)
-    }
-
-    try {
-        displacementTexture = useTexture(`${textureDirectory}/${materialName}_Displacement.jpg`)
-    } catch (e) {
-        console.warn(`Displacement texture not found: ${textureDirectory}/${materialName}_Displacement.jpg`)
-    }
+    const [colorTexture, normalTexture, roughnessTexture, metalnessTexture, displacementTexture] = textures
 
     // Configure texture repeat for all loaded textures
-    const textures = [colorTexture, normalTexture, roughnessTexture, metalnessTexture, displacementTexture]
     textures.forEach(texture => {
         if (texture) {
             texture.wrapS = texture.wrapT = THREE.RepeatWrapping
@@ -58,9 +33,7 @@ export function createMaterial(textureDirectory: string, materialName: string, s
     })
 
     // Build material properties object
-    const materialProps: any = {
-
-    }
+    const materialProps: Record<string, unknown> = {}
 
     if (colorTexture) materialProps.map = colorTexture
     if (normalTexture) materialProps.normalMap = normalTexture
@@ -74,8 +47,28 @@ export function createMaterial(textureDirectory: string, materialName: string, s
     return materialProps
 }
 
-// Specialized function for plastic material with mixed file extensions
-export function createPlasticMaterial(scale: number = 1, options: {
+// Legacy function for backward compatibility - creates material without hooks
+export function createMaterial(textureDirectory: string, materialName: string, _scale: number = 1, options: {
+    roughness?: number,
+    metalness?: number,
+    displacementScale?: number
+} = {}) {
+    const {
+        displacementScale = 0.1
+    } = options
+
+    // Build material properties object without textures for non-hook usage
+    const materialProps: Record<string, unknown> = {
+        roughness: options.roughness || 0.8,
+        metalness: options.metalness || 0.2,
+        displacementScale
+    }
+
+    return materialProps
+}
+
+// Specialized hook for plastic material with mixed file extensions
+export function usePlasticMaterial(scale: number = 1, options: {
     roughness?: number,
     metalness?: number,
     displacementScale?: number
@@ -83,7 +76,6 @@ export function createPlasticMaterial(scale: number = 1, options: {
     const {
         roughness = 0.8,
         metalness = 0.1, // Plastic is typically less metallic
-        displacementScale = 0.05
     } = options
 
     // Load plastic textures with their specific file extensions (excluding TIFF displacement)
@@ -106,7 +98,7 @@ export function createPlasticMaterial(scale: number = 1, options: {
     })
 
     // Build material properties object
-    const materialProps: any = {
+    const materialProps: Record<string, unknown> = {
         map: colorMap,
         normalMap: normalMap,
         roughnessMap: roughnessMap,
@@ -122,8 +114,29 @@ export function createPlasticMaterial(scale: number = 1, options: {
     return materialProps
 }
 
-// Specialized function for colored plastic material (without color texture)
-export function createColoredPlasticMaterial(color: string, scale: number = 1, options: {
+// Legacy function for backward compatibility
+export function createPlasticMaterial(_scale: number = 1, options: {
+    roughness?: number,
+    metalness?: number,
+    displacementScale?: number
+} = {}) {
+    const {
+        roughness = 0.8,
+        metalness = 0.1,
+    } = options
+
+    // Build material properties object without textures for non-hook usage
+    const materialProps: Record<string, unknown> = {
+        roughness: roughness,
+        metalness: metalness,
+        color: new THREE.Color(0xffffff),
+    }
+
+    return materialProps
+}
+
+// Specialized hook for colored plastic material (without color texture)
+export function useColoredPlasticMaterial(color: string, scale: number = 1, options: {
     roughness?: number,
     metalness?: number,
     displacementScale?: number
@@ -131,7 +144,6 @@ export function createColoredPlasticMaterial(color: string, scale: number = 1, o
     const {
         roughness = 0.8,
         metalness = 0.1, // Plastic is typically less metallic
-        displacementScale = 0.05
     } = options
 
     // Load plastic textures excluding the color map so our custom color shows through
@@ -153,7 +165,7 @@ export function createColoredPlasticMaterial(color: string, scale: number = 1, o
     })
 
     // Build material properties object with custom color
-    const materialProps: any = {
+    const materialProps: Record<string, unknown> = {
         normalMap: normalMap,
         roughnessMap: roughnessMap,
         metalnessMap: metallicMap,
@@ -161,6 +173,27 @@ export function createColoredPlasticMaterial(color: string, scale: number = 1, o
         roughness: roughness,
         metalness: metalness,
         color: new THREE.Color(color), // Use the custom color instead of texture
+    }
+
+    return materialProps
+}
+
+// Legacy function for backward compatibility
+export function createColoredPlasticMaterial(color: string, _scale: number = 1, _options: {
+    roughness?: number,
+    metalness?: number,
+    displacementScale?: number
+} = {}) {
+    const {
+        roughness = 0.8,
+        metalness = 0.1,
+    } = _options
+
+    // Build material properties object without textures for non-hook usage
+    const materialProps: Record<string, unknown> = {
+        roughness: roughness,
+        metalness: metalness,
+        color: new THREE.Color(color),
     }
 
     return materialProps
@@ -188,7 +221,7 @@ export function useApplyMaterial(
     textureDirectory: string,
     materialName: string,
     scale: number = 1,
-    options?: {
+    _options?: {
         roughness?: number,
         metalness?: number,
         displacementScale?: number
@@ -198,7 +231,7 @@ export function useApplyMaterial(
         roughness = 0.8,
         metalness = 0.2,
         displacementScale = 0.1
-    } = options || {}
+    } = _options || {}
 
     // Load textures directly using useLoader
     const colorTexture = useLoader(THREE.TextureLoader, `${textureDirectory}/${materialName}_Color.jpg`)
@@ -238,7 +271,7 @@ export function useApplyMaterial(
             material.metalness = metalness
             material.needsUpdate = true
         }
-    }, [colorTexture, normalTexture, roughnessTexture, metalnessTexture, displacementTexture, scale, roughness, metalness, displacementScale])
+    }, [colorTexture, normalTexture, roughnessTexture, metalnessTexture, displacementTexture, scale, roughness, metalness, displacementScale, meshRef])
 
     return {
         colorTexture,

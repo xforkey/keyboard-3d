@@ -148,12 +148,12 @@ function ZmkTestContent() {
                         </span>
                     )}
                 </h3>
-                {layers.map((layer, index) => (
+                {layers.map((layer) => (
                     <div
                         key={layer.id}
                         className={`p-2 rounded border ${state.selectedLayer === layer.id
-                                ? 'bg-blue-50 border-blue-300'
-                                : 'bg-gray-50 border-gray-200'
+                            ? 'bg-blue-50 border-blue-300'
+                            : 'bg-gray-50 border-gray-200'
                             }`}
                     >
                         <div className="font-medium">{layer.name}</div>
@@ -164,8 +164,8 @@ function ZmkTestContent() {
                             <div
                                 key={keyId}
                                 className={`text-xs ml-2 ${state.selectedKey === keyId
-                                        ? 'text-purple-600 font-medium'
-                                        : 'text-gray-500'
+                                    ? 'text-purple-600 font-medium'
+                                    : 'text-gray-500'
                                     }`}
                             >
                                 {keyId}: {binding.code} ({binding.type})

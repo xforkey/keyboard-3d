@@ -1,5 +1,5 @@
 import { Binding, Layer, KeymapConfig } from './keyboard-types';
-import { TOTAL_KEYS, ROWS, COLS, ROW_KEY_COUNTS } from './keyboard-constants';
+import { TOTAL_KEYS, ROWS, ROW_KEY_COUNTS } from './keyboard-constants';
 
 /**
  * ZMK Parser for loading and normalizing keymap.dtsi files

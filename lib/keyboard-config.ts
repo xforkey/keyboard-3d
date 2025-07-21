@@ -19,7 +19,30 @@ export const KEY_SYMBOL_MAP: Record<string, string> = {
     'OPTION': '⌥',
     'SHIFT': '⇧',
     'TAB': '⇥',
-    'ESC': '⎋'
+    'ESC': '⎋',
+    // Punctuation symbols
+    'DOT': '.',
+    'COMMA': ',',
+    'FSLH': '/',
+    'SEMI': ';',
+    'SQT': "'",
+    'GRAVE': '`',
+    'BSLH': '\\',
+    'LBKT': '[',
+    'RBKT': ']',
+    'MINUS': '-',
+    'EQUAL': '=',
+    'LSHIFT': '⇧',
+    'RSHIFT': '⇧',
+    'LCTRL': '⌃',
+    'RCTRL': '⌃',
+    'LALT': '⌥',
+    'RALT': '⌥',
+    'LGUI': '⌘',
+    'RGUI': '⌘',
+    'BSPC': '⌫',
+    'RET': '⏎',
+    'ENTER': '⏎'
 }
 
 // Maps physical keyboard keys to 3D model key names
