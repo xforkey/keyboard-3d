@@ -1,0 +1,1033 @@
+{
+    "metadata": {
+        "name": "3D Keyboard Layout Data",
+        "description": "Static key position data for 3D keyboard model with QWERTY layout",
+        "version": "1.0.0",
+        "created": "2025-01-21",
+        "layout": "QWERTY",
+        "rows": 4,
+        "columns": 12,
+        "totalKeys": 42
+    },
+    "keys": [
+        {
+            "id": "L0_R0C0",
+            "layer": "0",
+            "row": 0,
+            "col": 0,
+            "binding": "&kp TAB",
+            "label": "⇥",
+            "position": [
+                -134.0181884765625,
+                21.134532928466797,
+                24.29423713684082
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(TAB)",
+            "side": "left",
+            "meta": {
+                "keyName": "TAB",
+                "originalIndex": 37
+            }
+        },
+        {
+            "id": "L0_R0C1",
+            "layer": "0",
+            "row": 0,
+            "col": 1,
+            "binding": "&kp Q",
+            "position": [
+                -115.15586853027344,
+                21.09125518798828,
+                23.97270393371582
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(Q)",
+            "side": "left",
+            "meta": {
+                "keyName": "Q",
+                "originalIndex": 31
+            }
+        },
+        {
+            "id": "L0_R0C2",
+            "layer": "0",
+            "row": 0,
+            "col": 2,
+            "binding": "&kp W",
+            "position": [
+                -95.65692901611328,
+                21.13453483581543,
+                19.570968627929688
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(W)",
+            "side": "left",
+            "meta": {
+                "keyName": "W",
+                "originalIndex": 39
+            }
+        },
+        {
+            "id": "L0_R0C3",
+            "layer": "0",
+            "row": 0,
+            "col": 3,
+            "binding": "&kp E",
+            "position": [
+                -76.79461669921875,
+                21.09125518798828,
+                16.634981155395508
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(E)",
+            "side": "left",
+            "meta": {
+                "keyName": "E",
+                "originalIndex": 27
+            }
+        },
+        {
+            "id": "L0_R0C4",
+            "layer": "0",
+            "row": 0,
+            "col": 4,
+            "binding": "&kp R",
+            "position": [
+                -57.794612884521484,
+                21.09125518798828,
+                19.63494873046875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(R)",
+            "side": "left",
+            "meta": {
+                "keyName": "R",
+                "originalIndex": 32
+            }
+        },
+        {
+            "id": "L0_R0C5",
+            "layer": "0",
+            "row": 0,
+            "col": 5,
+            "binding": "&kp T",
+            "position": [
+                -38.79460525512695,
+                21.09125518798828,
+                21.634950637817383
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(T)",
+            "side": "left",
+            "meta": {
+                "keyName": "T",
+                "originalIndex": 36
+            }
+        },
+        {
+            "id": "L0_R0C6",
+            "layer": "0",
+            "row": 0,
+            "col": 6,
+            "binding": "&kp Y",
+            "position": [
+                39.205387115478516,
+                21.09125518798828,
+                21.634950637817383
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(Y)",
+            "side": "right",
+            "meta": {
+                "keyName": "Y",
+                "originalIndex": 20
+            }
+        },
+        {
+            "id": "L0_R0C7",
+            "layer": "0",
+            "row": 0,
+            "col": 7,
+            "binding": "&kp U",
+            "position": [
+                58.34307098388672,
+                21.134532928466797,
+                19.570968627929688
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(U)",
+            "side": "right",
+            "meta": {
+                "keyName": "U",
+                "originalIndex": 19
+            }
+        },
+        {
+            "id": "L0_R0C8",
+            "layer": "0",
+            "row": 0,
+            "col": 8,
+            "binding": "&kp I",
+            "position": [
+                77.20539093017578,
+                21.09125518798828,
+                16.634981155395508
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(I)",
+            "side": "right",
+            "meta": {
+                "keyName": "I",
+                "originalIndex": 9
+            }
+        },
+        {
+            "id": "L0_R0C9",
+            "layer": "0",
+            "row": 0,
+            "col": 9,
+            "binding": "&kp O",
+            "position": [
+                96.20539855957031,
+                21.09125518798828,
+                19.63494873046875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(O)",
+            "side": "right",
+            "meta": {
+                "keyName": "O",
+                "originalIndex": 16
+            }
+        },
+        {
+            "id": "L0_R0C10",
+            "layer": "0",
+            "row": 0,
+            "col": 10,
+            "binding": "&kp P",
+            "position": [
+                114.98186111450195,
+                21.13453483581543,
+                24.294235229492188
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(P)",
+            "side": "right",
+            "meta": {
+                "keyName": "P",
+                "originalIndex": 18
+            }
+        },
+        {
+            "id": "L0_R0C11",
+            "layer": "0",
+            "row": 0,
+            "col": 11,
+            "binding": "&kp BSPC",
+            "label": "⌫",
+            "position": [
+                134.84414672851562,
+                21.09125518798828,
+                23.97270393371582
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(Del)",
+            "side": "right",
+            "meta": {
+                "keyName": "Del",
+                "originalIndex": 5
+            }
+        },
+        {
+            "id": "L0_R1C0",
+            "layer": "0",
+            "row": 1,
+            "col": 0,
+            "binding": "&kp LCTRL",
+            "label": "⌃",
+            "position": [
+                -134.01820373535156,
+                21.13453483581543,
+                43.200164794921875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(CTRL)",
+            "side": "left",
+            "meta": {
+                "keyName": "CTRL",
+                "originalIndex": 25
+            }
+        },
+        {
+            "id": "L0_R1C1",
+            "layer": "0",
+            "row": 1,
+            "col": 1,
+            "binding": "&kp A",
+            "position": [
+                -115.15586853027344,
+                21.09125518798828,
+                42.878631591796875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(A)",
+            "side": "left",
+            "meta": {
+                "keyName": "A",
+                "originalIndex": 21
+            }
+        },
+        {
+            "id": "L0_R1C2",
+            "layer": "0",
+            "row": 1,
+            "col": 2,
+            "binding": "&kp S",
+            "position": [
+                -95.65692901611328,
+                21.13453483581543,
+                38.47689437866211
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(S)",
+            "side": "left",
+            "meta": {
+                "keyName": "S",
+                "originalIndex": 33
+            }
+        },
+        {
+            "id": "L0_R1C3",
+            "layer": "0",
+            "row": 1,
+            "col": 3,
+            "binding": "&kp D",
+            "position": [
+                -76.79461669921875,
+                21.09125518798828,
+                35.54090881347656
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(D)",
+            "side": "left",
+            "meta": {
+                "keyName": "D",
+                "originalIndex": 26
+            }
+        },
+        {
+            "id": "L0_R1C4",
+            "layer": "0",
+            "row": 1,
+            "col": 4,
+            "binding": "&kp F",
+            "position": [
+                -57.794612884521484,
+                21.09125518798828,
+                38.540889739990234
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(F)",
+            "side": "left",
+            "meta": {
+                "keyName": "F",
+                "originalIndex": 28
+            }
+        },
+        {
+            "id": "L0_R1C5",
+            "layer": "0",
+            "row": 1,
+            "col": 5,
+            "binding": "&kp G",
+            "position": [
+                -38.79460525512695,
+                21.09125518798828,
+                40.54087829589844
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(G)",
+            "side": "left",
+            "meta": {
+                "keyName": "G",
+                "originalIndex": 29
+            }
+        },
+        {
+            "id": "L0_R1C6",
+            "layer": "0",
+            "row": 1,
+            "col": 6,
+            "binding": "&kp H",
+            "position": [
+                39.205387115478516,
+                21.09125518798828,
+                40.54087829589844
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(H)",
+            "side": "right",
+            "meta": {
+                "keyName": "H",
+                "originalIndex": 8
+            }
+        },
+        {
+            "id": "L0_R1C7",
+            "layer": "0",
+            "row": 1,
+            "col": 7,
+            "binding": "&kp J",
+            "position": [
+                58.343082427978516,
+                21.13453483581543,
+                38.47689437866211
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(J)",
+            "side": "right",
+            "meta": {
+                "keyName": "J",
+                "originalIndex": 10
+            }
+        },
+        {
+            "id": "L0_R1C8",
+            "layer": "0",
+            "row": 1,
+            "col": 8,
+            "binding": "&kp K",
+            "position": [
+                77.20539093017578,
+                21.09125518798828,
+                35.5408935546875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(K)",
+            "side": "right",
+            "meta": {
+                "keyName": "K",
+                "originalIndex": 11
+            }
+        },
+        {
+            "id": "L0_R1C9",
+            "layer": "0",
+            "row": 1,
+            "col": 9,
+            "binding": "&kp L",
+            "position": [
+                96.20539855957031,
+                21.09125518798828,
+                38.540889739990234
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(L)",
+            "side": "right",
+            "meta": {
+                "keyName": "L",
+                "originalIndex": 12
+            }
+        },
+        {
+            "id": "L0_R1C10",
+            "layer": "0",
+            "row": 1,
+            "col": 10,
+            "binding": "&kp SEMI",
+            "position": [
+                114.98186111450195,
+                21.13453483581543,
+                43.200164794921875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(;)",
+            "side": "right",
+            "meta": {
+                "keyName": ";",
+                "originalIndex": 4
+            }
+        },
+        {
+            "id": "L0_R1C11",
+            "layer": "0",
+            "row": 1,
+            "col": 11,
+            "binding": "&kp SQT",
+            "position": [
+                134.84414672851562,
+                21.09125518798828,
+                42.878631591796875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(')",
+            "side": "right",
+            "meta": {
+                "keyName": "'",
+                "originalIndex": 0
+            }
+        },
+        {
+            "id": "L0_R2C0",
+            "layer": "0",
+            "row": 2,
+            "col": 0,
+            "binding": "&kp LSHFT",
+            "label": "⇧",
+            "position": [
+                -134.01820373535156,
+                21.13453483581543,
+                62.24922180175781
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(SHIFT)",
+            "side": "left",
+            "meta": {
+                "keyName": "SHIFT",
+                "originalIndex": 34
+            }
+        },
+        {
+            "id": "L0_R2C1",
+            "layer": "0",
+            "row": 2,
+            "col": 1,
+            "binding": "&kp Z",
+            "position": [
+                -115.15586853027344,
+                21.09125518798828,
+                61.927703857421875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(Z)",
+            "side": "left",
+            "meta": {
+                "keyName": "Z",
+                "originalIndex": 41
+            }
+        },
+        {
+            "id": "L0_R2C2",
+            "layer": "0",
+            "row": 2,
+            "col": 2,
+            "binding": "&kp X",
+            "position": [
+                -95.65692901611328,
+                21.13453483581543,
+                57.52597427368164
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(X)",
+            "side": "left",
+            "meta": {
+                "keyName": "X",
+                "originalIndex": 40
+            }
+        },
+        {
+            "id": "L0_R2C3",
+            "layer": "0",
+            "row": 2,
+            "col": 3,
+            "binding": "&kp C",
+            "position": [
+                -76.79461669921875,
+                21.09125518798828,
+                54.5899658203125
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(C)",
+            "side": "left",
+            "meta": {
+                "keyName": "C",
+                "originalIndex": 23
+            }
+        },
+        {
+            "id": "L0_R2C4",
+            "layer": "0",
+            "row": 2,
+            "col": 4,
+            "binding": "&kp V",
+            "position": [
+                -57.794612884521484,
+                21.09125518798828,
+                57.589969635009766
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(V)",
+            "side": "left",
+            "meta": {
+                "keyName": "V",
+                "originalIndex": 38
+            }
+        },
+        {
+            "id": "L0_R2C5",
+            "layer": "0",
+            "row": 2,
+            "col": 5,
+            "binding": "&kp B",
+            "position": [
+                -38.79460525512695,
+                21.09125518798828,
+                59.5899658203125
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(B)",
+            "side": "left",
+            "meta": {
+                "keyName": "B",
+                "originalIndex": 22
+            }
+        },
+        {
+            "id": "L0_R2C6",
+            "layer": "0",
+            "row": 2,
+            "col": 6,
+            "binding": "&kp N",
+            "position": [
+                39.205387115478516,
+                21.09125518798828,
+                59.58995056152344
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(N)",
+            "side": "right",
+            "meta": {
+                "keyName": "N",
+                "originalIndex": 15
+            }
+        },
+        {
+            "id": "L0_R2C7",
+            "layer": "0",
+            "row": 2,
+            "col": 7,
+            "binding": "&kp M",
+            "position": [
+                58.343082427978516,
+                21.13453483581543,
+                57.5259895324707
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(M)",
+            "side": "right",
+            "meta": {
+                "keyName": "M",
+                "originalIndex": 14
+            }
+        },
+        {
+            "id": "L0_R2C8",
+            "layer": "0",
+            "row": 2,
+            "col": 8,
+            "binding": "&kp COMMA",
+            "position": [
+                77.20539093017578,
+                21.09125518798828,
+                54.58998107910156
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(,)",
+            "side": "right",
+            "meta": {
+                "keyName": ",",
+                "originalIndex": 1
+            }
+        },
+        {
+            "id": "L0_R2C9",
+            "layer": "0",
+            "row": 2,
+            "col": 9,
+            "binding": "&kp DOT",
+            "position": [
+                96.20539855957031,
+                21.09125518798828,
+                57.58998489379883
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(.)",
+            "side": "right",
+            "meta": {
+                "keyName": ".",
+                "originalIndex": 2
+            }
+        },
+        {
+            "id": "L0_R2C10",
+            "layer": "0",
+            "row": 2,
+            "col": 10,
+            "binding": "&kp FSLH",
+            "position": [
+                114.98186111450195,
+                21.13453483581543,
+                62.24920654296875
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(/)",
+            "side": "right",
+            "meta": {
+                "keyName": "/",
+                "originalIndex": 3
+            }
+        },
+        {
+            "id": "L0_R2C11",
+            "layer": "0",
+            "row": 2,
+            "col": 11,
+            "binding": "&kp ESC",
+            "label": "⎋",
+            "position": [
+                134.84414672851562,
+                21.09125518798828,
+                61.92771911621094
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(ESC)",
+            "side": "right",
+            "meta": {
+                "keyName": "ESC",
+                "originalIndex": 7
+            }
+        },
+        {
+            "id": "L0_R3C0",
+            "layer": "0",
+            "row": 3,
+            "col": 0,
+            "binding": "&kp LGUI",
+            "label": "⌘",
+            "position": [
+                -67.79460906982422,
+                21.09125518798828,
+                76.5899658203125
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(CMD)",
+            "side": "left",
+            "meta": {
+                "keyName": "CMD",
+                "originalIndex": 24
+            }
+        },
+        {
+            "id": "L0_R3C1",
+            "layer": "0",
+            "row": 3,
+            "col": 1,
+            "binding": "&mo 1",
+            "label": "L1",
+            "position": [
+                -46.85237657311142,
+                21.091252326965332,
+                79.59624412389743
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                -0.26787851385644734,
+                1
+            ],
+            "meshName": "Keycap(LAYER1)",
+            "side": "left",
+            "meta": {
+                "keyName": "LAYER1",
+                "originalIndex": 30
+            }
+        },
+        {
+            "id": "L0_R3C2",
+            "layer": "0",
+            "row": 3,
+            "col": 2,
+            "binding": "&kp SPACE",
+            "label": "␣",
+            "position": [
+                -24.907050567919466,
+                21.09125328063965,
+                83.587740571624
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                -0.5228316797730954,
+                1
+            ],
+            "meshName": "Keycap(SPACE)",
+            "side": "left",
+            "meta": {
+                "keyName": "SPACE",
+                "originalIndex": 35
+            }
+        },
+        {
+            "id": "L0_R3C3",
+            "layer": "0",
+            "row": 3,
+            "col": 3,
+            "binding": "&kp RET",
+            "label": "⏎",
+            "position": [
+                24.547033283222078,
+                21.091254495759582,
+                83.58776284200351
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0.5228316526769464,
+                1
+            ],
+            "meshName": "Keycap(Enter)",
+            "side": "right",
+            "meta": {
+                "keyName": "Enter",
+                "originalIndex": 6
+            }
+        },
+        {
+            "id": "L0_R3C4",
+            "layer": "0",
+            "row": 3,
+            "col": 4,
+            "binding": "&mo 2",
+            "label": "L2",
+            "position": [
+                46.49239806002021,
+                21.0912513293087,
+                79.5962627368243
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0.2678784993074046,
+                1
+            ],
+            "meshName": "Keycap(LAYER2)",
+            "side": "right",
+            "meta": {
+                "keyName": "LAYER2",
+                "originalIndex": 13
+            }
+        },
+        {
+            "id": "L0_R3C5",
+            "layer": "0",
+            "row": 3,
+            "col": 5,
+            "binding": "&kp LALT",
+            "label": "⌥",
+            "position": [
+                67.43461193699068,
+                21.0912517452648,
+                76.58996035611933
+            ],
+            "rotation": [
+                -1.5707963267948966,
+                0,
+                0,
+                1
+            ],
+            "meshName": "Keycap(OPTION)",
+            "side": "right",
+            "meta": {
+                "keyName": "OPTION",
+                "originalIndex": 17
+            }
+        }
+    ]
+}
